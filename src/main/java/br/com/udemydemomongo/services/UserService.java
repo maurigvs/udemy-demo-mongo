@@ -28,9 +28,6 @@ public class UserService {
 
     public List<Post> findPosts(String id){
         User user = findById(id);
-        if(user.getPosts().isEmpty()){
-            throw new ObjectNotFoundException("No posts found by User Id: " + id);
-        }
         return user.getPosts();
     }
 
