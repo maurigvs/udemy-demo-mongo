@@ -1,12 +1,16 @@
 package br.com.udemydemomongo.config;
 
+import br.com.udemydemomongo.domain.Post;
 import br.com.udemydemomongo.domain.User;
+import br.com.udemydemomongo.repositories.PostRepository;
 import br.com.udemydemomongo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.TimeZone;
 
 @Configuration
 public class Instantiation implements CommandLineRunner {
@@ -14,9 +18,16 @@ public class Instantiation implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PostRepository postRepository;
+
     @Override
     public void run(String... args) throws Exception {
 
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+
+        postRepository.deleteAll();
         userRepository.deleteAll();
 
         User maria = new User(null, "Maria Brown", "maria@gmail.com");
@@ -24,6 +35,11 @@ public class Instantiation implements CommandLineRunner {
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
 
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
+
+        Post p1 = new Post(null, sdf.parse("16/08/2022"), "Partiu viagem!", "Vou viajar para São Paulo, abraços!", maria);
+        Post p2 = new Post(null, sdf.parse("15/08/2022"), "Bom dia!", "Acordei feliz hoje!", maria);
+
+        postRepository.saveAll(Arrays.asList(p1, p2));
 
     }
 }
