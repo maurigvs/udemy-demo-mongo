@@ -1,5 +1,6 @@
 package br.com.udemydemomongo.resources;
 
+import br.com.udemydemomongo.domain.Post;
 import br.com.udemydemomongo.domain.User;
 import br.com.udemydemomongo.dto.UserDTO;
 import br.com.udemydemomongo.services.UserService;
@@ -33,6 +34,12 @@ public class UserResource {
 
         UserDTO user = new UserDTO(service.findById(id));
         return ResponseEntity.ok().body(user);
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        List<Post> posts = service.findPosts(id);
+        return ResponseEntity.ok().body(posts);
     }
 
     @PostMapping

@@ -1,5 +1,6 @@
 package br.com.udemydemomongo.services;
 
+import br.com.udemydemomongo.domain.Post;
 import br.com.udemydemomongo.domain.User;
 import br.com.udemydemomongo.dto.UserDTO;
 import br.com.udemydemomongo.repositories.UserRepository;
@@ -23,6 +24,14 @@ public class UserService {
     public User findById(String id){
         Optional<User> user = repository.findById(id);
         return user.orElseThrow(() -> new ObjectNotFoundException("User not found by Id: " + id));
+    }
+
+    public List<Post> findPosts(String id){
+        User user = findById(id);
+        if(user.getPosts().isEmpty()){
+            throw new ObjectNotFoundException("No posts found by User Id: " + id);
+        }
+        return user.getPosts();
     }
 
     public User insert(User user){
