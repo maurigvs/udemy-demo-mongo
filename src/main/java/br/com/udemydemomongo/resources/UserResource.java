@@ -38,6 +38,7 @@ public class UserResource {
 
     @GetMapping(value = "/{id}/posts")
     public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+
         List<Post> posts = service.findPosts(id);
         return ResponseEntity.ok().body(posts);
     }
