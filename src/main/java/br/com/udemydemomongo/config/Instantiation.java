@@ -2,6 +2,7 @@ package br.com.udemydemomongo.config;
 
 import br.com.udemydemomongo.domain.Post;
 import br.com.udemydemomongo.domain.User;
+import br.com.udemydemomongo.dto.AuthorDTO;
 import br.com.udemydemomongo.repositories.PostRepository;
 import br.com.udemydemomongo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,8 @@ public class Instantiation implements CommandLineRunner {
 
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
 
-        Post p1 = new Post(null, sdf.parse("16/08/2022"), "Partiu viagem!", "Vou viajar para São Paulo, abraços!", maria);
-        Post p2 = new Post(null, sdf.parse("15/08/2022"), "Bom dia!", "Acordei feliz hoje!", maria);
+        Post p1 = new Post(null, sdf.parse("16/08/2022"), "Partiu viagem!", "Vou viajar para São Paulo, abraços!", new AuthorDTO(maria));
+        Post p2 = new Post(null, sdf.parse("15/08/2022"), "Bom dia!", "Acordei feliz hoje!", new AuthorDTO(maria));
 
         postRepository.saveAll(Arrays.asList(p1, p2));
 
