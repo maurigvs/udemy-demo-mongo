@@ -6,7 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Document // equivalente ao Entity do JPA
+@Document // equivalente ao @Entity do JPA
 public class User implements Serializable {
 
     @Id
