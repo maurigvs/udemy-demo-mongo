@@ -29,12 +29,26 @@ public class UserService {
         return repository.save(user);
     }
 
+    public User update(User user){
+
+        User userToUpdate = findById(user.getId());
+        updateData(userToUpdate, user);
+        return repository.save(userToUpdate);
+    }
+
     public void delete(String id){
+
         User user = findById(id);
         repository.deleteById(user.getId());
     }
 
     public User fromDTO(UserDTO userDto){
         return new User(userDto.getId(), userDto.getName(), userDto.getEmail());
+    }
+
+    private void updateData(User userToUpdate, User user) {
+        // Previne que o Id e a Senha sejam atualizados
+        userToUpdate.setName(user.getName());
+        userToUpdate.setEmail(user.getEmail());
     }
 }
